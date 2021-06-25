@@ -23,9 +23,7 @@ SELECT titles.title AS title, COUNT(*) AS Total
 FROM titles
          JOIN dept_emp
               ON titles.emp_no = dept_emp.emp_no
-         JOIN departments
-              ON departments.dept_no = dept_emp.dept_no
-WHERE departments.dept_name = 'Customer Service' AND titles.to_date = '9999-01-01' AND dept_emp.to_date = '9999-01-01'
+WHERE dept_emp.dept_no = 'd009' AND titles.to_date = '9999-01-01' AND dept_emp.to_date = '9999-01-01'
 GROUP BY title;
 
 -- Find the current salary of all current managers.
@@ -55,6 +53,3 @@ ORDER BY departments.dept_name;
 -- WHERE dept_emp.to_date = '9999-01-01'
 -- ORDER BY departments.dept_name
 -- LIMIT 50;
-
-
-

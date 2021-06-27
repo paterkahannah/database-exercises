@@ -6,12 +6,43 @@ WHERE hire_date = (
     WHERE emp_no = 101010
     );
 
-SELECT title, first_name
+SELECT title, count(*)
 FROM titles
-    JOIN employees
-        ON employees.emp_no = titles.emp_no
-WHERE first_name = (
-    SELECT first_name
+WHERE emp_no IN (
+    SELECT emp_no
     FROM employees
     WHERE first_name = 'Aamod'
-);
+)
+GROUP BY title;
+
+-- Find all the current department managers that are female.
+SELECT first_name, last_name
+FROM employees
+WHERE emp_no IN (
+    SELECT emp_no
+    FROM dept_manager
+    WHERE to_date = '9999-01-01' AND gender = 'f'
+    );
+
+-- Find all the department names that currently have female managers.
+SELECT dept_name
+FROM departments
+WHERE dept_no IN (
+    SELECT dept_no
+    FROM dept_manager
+    WHERE emp_no IN (
+        SELECT emp_no
+        FROM employees
+        WHERE to_date = '9999-01-01' AND gender = 'f'
+        )
+    );
+
+-- -- Find the first and last name of the employee with the highest salary.
+-- SELECT first_name, last_name
+-- FROM employees
+-- WHERE emp_no IN (
+--     SELECT emp_no
+--     FROM salaries
+--     WHERE salary = MAX(salary)
+-- )
+-- LIMIT 1;
